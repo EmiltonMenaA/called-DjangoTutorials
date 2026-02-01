@@ -26,13 +26,6 @@ Quick start
 
 5. Open the app in your browser at http://127.0.0.1:8000/
 
-Features
---------
-- Home, About, Contact pages using Django class-based TemplateView
-- Products listing and detail views (in-memory Product list)
-- Product creation form with validation (price > 0) and a confirmation page
-- Static CSS at `pages/static/pages/app.css`
-
 Useful routes
 -------------
 - / — Home
@@ -42,15 +35,3 @@ Useful routes
 - /products/<id> — Product details
 - /products/create — Create product form
 
-Notes
------
-- This app stores products in memory (a Python list) for tutorial/demo purposes only. Restarting the server will reset products to the initial list.
-- Do not use the Django development server in production. See the Django docs for deployment recommendations.
-
-Contributing
-------------
-Feel free to open issues or pull requests on the upstream repository.
-
-License
--------
-This is tutorial code — no license specified.
