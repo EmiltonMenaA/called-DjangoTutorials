@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views.generic import ListView, TemplateView
 
 from .models import Product
+from .utils import ImageLocalStorage
 
 
 # Create your views here.
@@ -185,3 +186,35 @@ class CartRemoveAllView(View):
             del request.session["cart_product_data"]
 
         return redirect("cart_index")
+
+
+# --- Image Views with Factory Pattern ---
+def imageViewFactory(image_storage):
+    class ImageView(View):
+        template_name = 'pages/images/index.html'
+
+        def get(self, request):
+            image_url = request.session.get('image_url', '')
+            return render(request, self.template_name, {'image_url': image_url})
+
+        def post(self, request):
+            image_url = image_storage.store(request)
+            request.session['image_url'] = image_url
+            return redirect('image_index')
+    
+    return ImageView
+
+
+# --- Image View Without Dependency Inversion ---
+class ImageViewNoDI(View):
+    template_name = 'imagesnodi/index.html'
+    
+    def get(self, request):
+        image_url = request.session.get('image_url', '')
+        return render(request, self.template_name, {'image_url': image_url})
+    
+    def post(self, request):
+        image_storage = ImageLocalStorage()
+        image_url = image_storage.store(request)
+        request.session['image_url'] = image_url
+        return redirect('image-nodi_index')
