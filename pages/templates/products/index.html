@@ -12,6 +12,10 @@
 <div class="card-body text-center">
 <a href="{% url 'show' id=product.id %}"
 class="btn bg-primary text-white">{{product.name}}</a>
+<form method="post" action="{% url 'cart_add' product.id %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success btn-sm mt-2">Add to Cart</button>
+</form>
 </div>
 </div>
 </div>

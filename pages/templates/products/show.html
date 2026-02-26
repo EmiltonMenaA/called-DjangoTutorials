@@ -21,6 +21,10 @@
         {% for comment in product.comment_set.all %}
         - {{ comment.description }}<br />
         {% endfor %}
+        <form method="post" action="{% url 'cart_add' product.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Add to Cart</button>
+        </form>
       </div>
     </div>
   </div>
