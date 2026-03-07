@@ -1,90 +1,111 @@
-Django Tutorials — Online Store
-===============================
+Django Tutorials
+================
 
-A comprehensive Django application showcasing a complete e-commerce system with products, comments, factory-based data seeding, and professional code quality standards.
+This repository contains two Django projects:
 
-## Features
+1. **djangocourse** (root project): web pages, products, comments, and REST API endpoints for products/comments.
+2. **todoapp** (subfolder project): Todo REST API with token authentication (signup/login) and CRUD operations.
 
-- **Product Management**: Create, list, and view products with detailed information
-- **Comments System**: Add and display comments linked to products via ForeignKey relationships
-- **Factory Boy Integration**: Automated database seeding with realistic test data
-- **Database Management**: SQLite database with factory-based product generation
-- **Professional Code Quality**: Black, isort, flake8, and autopep8 integrated
-- **Responsive Templates**: Bootstrap-based UI with static styling
-- **Management Commands**: Custom Django commands for database operations
+Requirements
+------------
 
+- Python 3.14+
+- Django 6.0.2
+- Django REST Framework
 
-## Quick Start
+Setup
+-----
 
-### 1. Clone the repository
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/EmiltonMenaA/called-DjangoTutorials.git
 cd called-DjangoTutorials
 ```
 
-### 2. Create and activate virtual environment (Windows PowerShell)
+2. Create and activate virtual environment (PowerShell):
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 3. Install dependencies
+3. Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install django==6.0.2 djangorestframework factory-boy
 ```
 
-Or manually install:
-```bash
-pip install django==6.0.2
-pip install factory-boy
-pip install black isort flake8 autopep8
-pip install sqlite-web
-```
+Project 1: djangocourse (root)
+------------------------------
 
-### 4. Run migrations
+Run migrations:
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 5. Seed the database with sample data
+Optional seed command:
 
 ```bash
 python manage.py seed_products
 ```
 
-This creates 8 products with randomly generated names and prices.
+Run server:
 
-### 6. Run the development server
+```bash
+python manage.py runserver --settings=djangocourse.settings
+```
+
+Main API endpoints:
+
+- `GET/POST /api/products/`
+- `GET/PUT/PATCH/DELETE /api/products/<id>/`
+- `GET/POST /api/comments/`
+- `GET/PUT/PATCH/DELETE /api/comments/<id>/`
+
+Project 2: todoapp
+------------------
+
+Move into project:
+
+```bash
+cd todoapp
+```
+
+Run migrations:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Run server:
 
 ```bash
 python manage.py runserver
 ```
 
-Access the application at **http://127.0.0.1:8000/**
+Auth endpoints:
 
+- `POST /api/signup/`
+- `POST /api/login/`
 
-## Database Viewer
+Todo endpoints (token required):
 
-To view your SQLite database visually:
+- `GET/POST /api/todos/`
+- `GET/PUT/PATCH/DELETE /api/todos/<id>/`
+- `PUT/PATCH /api/todos/<id>/complete`
 
-```bash
-pip install sqlite-web
-sqlite_web db.sqlite3
-```
+Notes
+-----
 
-Open **http://localhost:8080** in your browser
+- If you get 404 at `/`, use API routes directly.
+- Use only one Django server at a time on port `8000` to avoid confusion between projects.
 
-## Notes
+Author
+------
 
-- All products and comments are stored in SQLite database
-- The application includes management commands for database operations
-
-## Author
-
-Developed by: **Emilton Mena Acevedo**
+Emilton Mena Acevedo
 
