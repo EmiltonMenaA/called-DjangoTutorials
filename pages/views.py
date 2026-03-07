@@ -5,8 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView
+from rest_framework import generics
 
-from .models import Product
+from .models import Product, Comment
+from .serializers import ProductSerializer, CommentSerializer
 from .utils import ImageLocalStorage
 
 
@@ -218,3 +220,24 @@ class ImageViewNoDI(View):
         image_url = image_storage.store(request)
         request.session['image_url'] = image_url
         return redirect('image-nodi_index')
+
+
+# --- REST API Views ---
+class ProductList(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class CommentList(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class CommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
