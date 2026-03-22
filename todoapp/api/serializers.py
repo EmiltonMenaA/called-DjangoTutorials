@@ -2,7 +2,7 @@ from rest_framework import serializers
 from todo.models import ToDo
 
 
-class TodoSerializer(serializers.ModelSerializer):
+class ToDoSerializer(serializers.ModelSerializer):
     created = serializers.ReadOnlyField()
     completed = serializers.ReadOnlyField()
 
@@ -15,3 +15,10 @@ class TodoToggleCompleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDo
         fields = ['title', 'memo', 'created', 'completed']
+        extra_kwargs = {
+            'title': {'required': False},
+            'memo': {'required': False},
+        }
+
+
+TodoSerializer = ToDoSerializer

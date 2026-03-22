@@ -22,22 +22,17 @@ class TodoListCreate(generics.ListCreateAPIView):
         return ToDo.objects.filter(user=user).order_by('-created')
 
     def perform_create(self, serializer):
-        # serializer holds a django model
         serializer.save(user=self.request.user)
 
 
 class TodoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    # Handles GET (retrieve), PATCH (partial update), PUT (full update), DELETE
     serializer_class = TodoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
-        # user can only update, delete own posts
+        # user can only update and delete own posts
         return ToDo.objects.filter(user=user)
-
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user)
 
 
 class TodoToggleComplete(generics.UpdateAPIView):
@@ -57,7 +52,7 @@ class TodoToggleComplete(generics.UpdateAPIView):
 def signup(request):
     if request.method == 'POST':
         try:
-            data = JSONParser().parse(request)  # data is a dictionary
+            data = JSONParser().parse(request)
             user = User.objects.create_user(
                 username=data['username'],
                 password=data['password'],
